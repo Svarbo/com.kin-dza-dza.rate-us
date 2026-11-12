@@ -1,0 +1,16 @@
+{
+  "name": "com.kin-dza-dza.rate-us",
+  "version": "1.0.0",
+  "displayName": "Rate Us",
+  "type": "library",
+  "unity": "2022.3",
+  "description": "Wink multiplatform rate us plugin",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "samples": [
+    {
+    }
+  ],
+  "author": "https://github.com/Svarbo"
+}
