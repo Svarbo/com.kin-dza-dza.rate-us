@@ -6,8 +6,12 @@
   "unity": "2022.3",
   "description": "Wink multiplatform rate us plugin",
   "license": "MIT",
-  "dependencies": {
-  },
+    "dependencies": {
+        "com.agava.smsauthwebapi": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.textmeshpro": "3.0.9",
+        "com.agava.adsappview": "1.1.0"
+    },
   "samples": [
     {
     }
