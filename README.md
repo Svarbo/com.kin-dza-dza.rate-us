@@ -1,4 +1,4 @@
-# Smart Audio
+# Rate Us
 Make sure you have standalone Git installed first. Reboot after installation.
 In Unity, open "Window" -> "Package Manager".
 Click the "+" sign on top left corner -> "Add package from git URL..."
