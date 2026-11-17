@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using AdsAppView.Utility;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,22 +9,27 @@ namespace KinDzaDza.RateUs
     {
         [SerializeField] private Button _confirmButton;
         [SerializeField] private Button _refuseButton;
-        [SerializeField] private Image _popupBackground;
+        [SerializeField] private CanvasGroup _windowCanvasGroup;
         [SerializeField] private RateUsPopupTimer _rateUsPopupTimer;
+        [SerializeField] private string _reserveStoreLink;
 
         private string _storeLink;
         private Store _store;
 
         public static RateUsPopup Instance { get; private set; }
 
+        public static Action<RateUsPopup> LaunchGoogle;
+        public static Action<RateUsPopup> LaunchRuStore;
+
         public event Action Shown;
+        public event Action Closed;
 
         private void Awake()
         {
             Instance = this;
             DontDestroyOnLoad(this);
 
-            _popupBackground.gameObject.SetActive(false);
+            Hide();
         }
 
         private void OnEnable()
@@ -44,11 +48,15 @@ namespace KinDzaDza.RateUs
 
         public void Construct(string storeLink, Store store)
         {
-            Debug.LogError("Construct");
             _storeLink = storeLink;
             _store = store;
 
             _rateUsPopupTimer.TimerExpired += OnRateUsTimerExpired;
+        }
+
+        public void OpenStorePage()
+        {
+            TryOpenStorePage();
         }
 
         public bool TryShow()
@@ -65,12 +73,15 @@ namespace KinDzaDza.RateUs
 
         public void Hide()
         {
-            _popupBackground.gameObject.SetActive(false);
+            DisableCanvasGroup(_windowCanvasGroup);
+
+            Closed?.Invoke();
         }
+
 
         private void Show()
         {
-            _popupBackground.gameObject.SetActive(true);
+            EnableCanvasGroup(_windowCanvasGroup);
             PlayerPrefs.SetInt(Constants.RateUsShownKey, Constants.TrueValueInt);
 
             if (_rateUsPopupTimer.IsExpired == false)
@@ -89,70 +100,59 @@ namespace KinDzaDza.RateUs
 
         private void OnConfirmButtonClicked()
         {
+            RateUsAnalytics.SendClicked(true, true);
+
             switch (_store)
             {
                 case Store.Google:
-                    LaunchGooglePlayReview();
+                    LaunchGoogle(this);
                     break;
                 case Store.RuStore:
+                    LaunchRuStore(this);
                     break;
                 default:
                     TryOpenStorePage();
                     break;
             }
-
-            Hide();
         }
 
         private void OnRefuseButtonClicked()
         {
+            RateUsAnalytics.SendClicked(false, false);
             Hide();
         }
-
-        private IEnumerator LaunchGooglePlayReview()
-        {
-#if GOOGLE_PLAY
-            ReviewManager reviewManager = new ReviewManager();
-            PlayAsyncOperation<PlayReviewInfo, ReviewErrorCode> request = reviewManager.RequestReviewFlow();
-            yield return request;
-
-            if (request.Error != ReviewErrorCode.NoError)
-            {
-                OpenStorePage();
-                yield break;
-            }
-
-            PlayAsyncOperation<VoidResult, ReviewErrorCode> launch = reviewManager.LaunchReviewFlow(request.GetResult());
-            yield return launch;
-
-            if (launch.Error != ReviewErrorCode.NoError)
-            {
-                OpenStorePage();
-            }
-            else
-            {
-                Hide();
-            }
-#else
-            yield return null;
-#endif
-        }
-
-#if RU_STORE
-#endif
 
         private bool TryOpenStorePage()
         {
-            bool isLinkEmpty = string.IsNullOrEmpty(_storeLink);
+            bool isStoreLinkEmpty = string.IsNullOrEmpty(_storeLink);
+            bool isReserveLinkEmpty = string.IsNullOrEmpty(_reserveStoreLink);
 
-            if (!isLinkEmpty)
+            if (!isStoreLinkEmpty)
             {
                 Application.OpenURL(_storeLink);
+            }
+            else if (!isReserveLinkEmpty)
+            {
+                Application.OpenURL(_reserveStoreLink);
             }
 
             Hide();
 
-            return !isLinkEmpty;
+            return !isStoreLinkEmpty;
+        }
+
+        private void EnableCanvasGroup(CanvasGroup canvas)
+        {
+            canvas.alpha = 1;
+            canvas.interactable = true;
+            canvas.blocksRaycasts = true;
+        }
+
+        private void DisableCanvasGroup(CanvasGroup canvas)
+        {
+            canvas.alpha = 0;
+            canvas.interactable = false;
+            canvas.blocksRaycasts = false;
         }
     }
 }

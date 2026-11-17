@@ -27,8 +27,6 @@ namespace KinDzaDza.RateUs
             }
             string json = JsonConvert.SerializeObject(new
             {
-                //app_id = "com.test",
-                //store_id = "Test",
                 app_id = Application.identifier,
                 store_id = _store.ToString(),
                 platform = "",
