@@ -7,6 +7,7 @@ namespace KinDzaDza.RateUs.SmsAuthVPS
     [Preserve]
     public static class WinkAuthVPSPause
     {
+        [Preserve]
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
         {

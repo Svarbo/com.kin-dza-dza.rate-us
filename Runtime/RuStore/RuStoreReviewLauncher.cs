@@ -44,6 +44,7 @@ namespace KinDzaDza.RateUs.RuStore
 #endif
         }
 
+        [Preserve]
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
         {

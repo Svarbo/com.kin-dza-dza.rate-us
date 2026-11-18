@@ -9,6 +9,7 @@ namespace KinDzaDza.RateUs.AdsAppView
     {
         private static bool _popupOpened;
 
+        [Preserve]
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
         {
@@ -18,6 +19,7 @@ namespace KinDzaDza.RateUs.AdsAppView
             RateUsPopupTimer.IsPopupPaused = () => _popupOpened;
         }
 
+        [Preserve]
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void RegisterRateUsPause()
         {

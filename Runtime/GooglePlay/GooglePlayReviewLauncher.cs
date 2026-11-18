@@ -3,7 +3,6 @@ using System.Collections;
 using System;
 using UnityEngine.Scripting;
 
-
 #if GOOGLE_PLAY
 using Google.Play.Review;
 using Google.Play.Common;
@@ -70,6 +69,7 @@ namespace KinDzaDza.RateUs.GooglePlay
 #endif
         }
 
+        [Preserve]
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
         {

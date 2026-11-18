@@ -7,6 +7,7 @@ namespace KinDzaDza.RateUs.Advertisement
     [Preserve]
     public static class AdvertisementBannerPause
     {
+        [Preserve]
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
         {
