@@ -2,8 +2,6 @@
     "name": "KinDzaDza.RateUs",
     "rootNamespace": "",
     "references": [
-        "GUID:700bc1f8708d8b8439f675250599d66d",
-        "GUID:a8f23aeb14cd2c5469bccb6037c66d3b",
         "GUID:a233deefe8df840f48e0648f292d73f8"
     ],
     "includePlatforms": [],

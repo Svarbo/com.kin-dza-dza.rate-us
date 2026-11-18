@@ -1,5 +1,4 @@
 using System;
-using Agava.Wink;
 using UnityEngine;
 
 namespace KinDzaDza.RateUs
@@ -13,6 +12,10 @@ namespace KinDzaDza.RateUs
         private bool _isStarted;
 
         public event Action TimerExpired;
+
+        public static Func<bool> IsPaused;
+        public static Func<bool> IsPopupPaused;
+        public static Func<bool> IsAdvertisementBannerPaused;
 
         private void OnApplicationPause(bool pause)
         {
@@ -37,7 +40,7 @@ namespace KinDzaDza.RateUs
 
         private void Update()
         {
-            if (_isStarted == false || IsExpired || WinkSignInHandlerUI.Instance == null || IsAnyWinkWindowOpen())
+            if (_isStarted == false || IsExpired || IsSmsAuthVpsPaused() || IsAdsAppViewPaused() || IsAdvertisementPaused())
             {
                 return;
             }
@@ -95,10 +98,19 @@ namespace KinDzaDza.RateUs
             PlayerPrefs.SetFloat(Constants.RateUsRemainingTimeKey, Mathf.Max(0f, _remainingSeconds));
         }
 
-        private bool IsAnyWinkWindowOpen()
+        private bool IsSmsAuthVpsPaused()
         {
-            WinkSignInHandlerUI wink = WinkSignInHandlerUI.Instance;
-            return wink != null && wink.IsAnyWindowEnabled;
+            return IsPaused != null && IsPaused.Invoke();
+        }
+
+        private bool IsAdsAppViewPaused()
+        {
+            return IsPopupPaused != null && IsPopupPaused.Invoke();
+        }
+
+        private bool IsAdvertisementPaused()
+        {
+            return IsAdvertisementBannerPaused != null && IsAdvertisementBannerPaused.Invoke();
         }
     }
 }

@@ -1,6 +1,5 @@
 using System.Text;
 using System.Threading.Tasks;
-using AdsAppView.Utility;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;

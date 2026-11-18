@@ -1,5 +1,4 @@
 using System;
-using AdsAppView.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +6,7 @@ namespace KinDzaDza.RateUs
 {
     public class RateUsPopup : MonoBehaviour
     {
+        [SerializeField] private RateUsPlaceType _rateUsPlaceType = RateUsPlaceType.Timer;
         [SerializeField] private Button _confirmButton;
         [SerializeField] private Button _refuseButton;
         [SerializeField] private CanvasGroup _windowCanvasGroup;
@@ -46,12 +46,16 @@ namespace KinDzaDza.RateUs
             _rateUsPopupTimer.TimerExpired -= OnRateUsTimerExpired;
         }
 
-        public void Construct(string storeLink, Store store)
+        public void Construct(string storeLink, Store store, float triggerTimeSeconds)
         {
             _storeLink = storeLink;
             _store = store;
 
-            _rateUsPopupTimer.TimerExpired += OnRateUsTimerExpired;
+            if (_rateUsPlaceType == RateUsPlaceType.Timer)
+            {
+                _rateUsPopupTimer.Construct(triggerTimeSeconds);
+                _rateUsPopupTimer.TimerExpired += OnRateUsTimerExpired;
+            }
         }
 
         public void OpenStorePage()
@@ -60,6 +64,23 @@ namespace KinDzaDza.RateUs
         }
 
         public bool TryShow()
+        {
+            if (_rateUsPlaceType != RateUsPlaceType.CustomPlace)
+            {
+                return false;
+            }
+
+            return ShowIfHasLink();
+        }
+
+        public void Hide()
+        {
+            DisableCanvasGroup(_windowCanvasGroup);
+
+            Closed?.Invoke();
+        }
+
+        private bool ShowIfHasLink()
         {
             bool isContainsStoreLink = !string.IsNullOrEmpty(_storeLink);
 
@@ -70,14 +91,6 @@ namespace KinDzaDza.RateUs
 
             return isContainsStoreLink;
         }
-
-        public void Hide()
-        {
-            DisableCanvasGroup(_windowCanvasGroup);
-
-            Closed?.Invoke();
-        }
-
 
         private void Show()
         {
@@ -95,7 +108,11 @@ namespace KinDzaDza.RateUs
         private void OnRateUsTimerExpired()
         {
             Debug.LogError("OnRateUsTimerExpired");
-            TryShow();
+
+            if (_rateUsPlaceType == RateUsPlaceType.Timer)
+            {
+                ShowIfHasLink();
+            }
         }
 
         private void OnConfirmButtonClicked()
