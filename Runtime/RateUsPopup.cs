@@ -121,10 +121,10 @@ namespace KinDzaDza.RateUs
 
             switch (_store)
             {
-                case Store.Google:
+                case Store.Google when LaunchGoogle != null:
                     LaunchGoogle(this);
                     break;
-                case Store.RuStore:
+                case Store.RuStore when LaunchRuStore != null:
                     LaunchRuStore(this);
                     break;
                 default:
