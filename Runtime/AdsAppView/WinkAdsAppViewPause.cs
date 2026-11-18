@@ -1,8 +1,10 @@
 using AdsAppView.Program;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace KinDzaDza.RateUs.AdsAppView
 {
+    [Preserve]
     public class WinkAdsAppViewPause
     {
         private static bool _popupOpened;

@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.Scripting;
+
 
 #if GOOGLE_PLAY
 using Google.Play.Review;
@@ -9,6 +11,7 @@ using Google.Play.Common;
 
 namespace KinDzaDza.RateUs.GooglePlay
 {
+    [Preserve]
     public class GooglePlayReviewLauncher
     {
 #if GOOGLE_PLAY

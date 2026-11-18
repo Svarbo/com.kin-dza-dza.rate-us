@@ -1,8 +1,10 @@
 using Agava.Wink;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace KinDzaDza.RateUs.SmsAuthVPS
 {
+    [Preserve]
     public static class WinkAuthVPSPause
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

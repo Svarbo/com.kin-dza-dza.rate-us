@@ -1,9 +1,11 @@
 using System;
 using RuStore.Review;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace KinDzaDza.RateUs.RuStore
 {
+    [Preserve]
     public class RuStoreReviewLauncher
     {
         public event Action<bool> CompleteOpening;
