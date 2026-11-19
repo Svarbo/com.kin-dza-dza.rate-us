@@ -16,7 +16,18 @@ namespace KinDzaDza.RateUs.Advertisement
         private static void Register()
         {
             RateUsPopupTimer.IsAdvertisementBannerPaused = () =>
-                AdvertisementController.Instance != null && AdvertisementController.Instance.BannerShown;
+            {
+                AdvertisementController advertisement = AdvertisementController.Instance;
+
+                if (advertisement == null)
+                {
+                    return false;
+                }
+
+                bool consentWindowOpen = advertisement.WaitConcernPolicy && advertisement.PolicyAccepted == false && advertisement.AgreementClosed == false;
+
+                return consentWindowOpen;
+            };
         }
     }
 }
