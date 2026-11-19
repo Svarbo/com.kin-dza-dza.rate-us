@@ -2,10 +2,14 @@ using KinDzaDzaGames.AdvertisementPlugin;
 using UnityEngine;
 using UnityEngine.Scripting;
 
+#if ADVERTISEMENT
+[assembly: AlwaysLinkAssembly]
+#endif
+
 namespace KinDzaDza.RateUs.Advertisement
 {
     [Preserve]
-    public static class AdvertisementBannerPause
+    public class AdvertisementBannerPause
     {
         [Preserve]
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

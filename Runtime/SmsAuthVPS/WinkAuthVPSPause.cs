@@ -2,10 +2,14 @@ using Agava.Wink;
 using UnityEngine;
 using UnityEngine.Scripting;
 
+#if SMS_AUTH_VPS
+[assembly: AlwaysLinkAssembly]
+#endif
+
 namespace KinDzaDza.RateUs.SmsAuthVPS
 {
     [Preserve]
-    public static class WinkAuthVPSPause
+    public class WinkAuthVPSPause
     {
         [Preserve]
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

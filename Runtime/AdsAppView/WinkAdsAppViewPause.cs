@@ -2,6 +2,10 @@ using AdsAppView.Program;
 using UnityEngine;
 using UnityEngine.Scripting;
 
+#if ADS_APP_VIEW
+[assembly: AlwaysLinkAssembly]
+#endif
+
 namespace KinDzaDza.RateUs.AdsAppView
 {
     [Preserve]
