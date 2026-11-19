@@ -65,7 +65,9 @@ namespace KinDzaDza.RateUs
 
         public bool TryShow()
         {
-            if (_rateUsPlaceType != RateUsPlaceType.CustomPlace)
+            bool IsRateUsShown = PlayerPrefs.GetInt(Constants.RateUsShownKey, Constants.FalseValueInt) == Constants.TrueValueInt;
+
+            if (_rateUsPlaceType != RateUsPlaceType.CustomPlace || IsRateUsShown)
             {
                 return false;
             }
