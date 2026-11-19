@@ -45,8 +45,8 @@ namespace KinDzaDza.RateUs
                 return;
             }
 
-            _remainingSeconds -= Time.unscaledDeltaTime;
-            _second -= Time.unscaledDeltaTime;
+            _remainingSeconds -= Time.deltaTime;
+            _second -= Time.deltaTime;
 
             if (_second <= 0f)
             {
