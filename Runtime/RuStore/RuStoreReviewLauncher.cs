@@ -3,6 +3,10 @@ using RuStore.Review;
 using UnityEngine;
 using UnityEngine.Scripting;
 
+#if GOOGLE_PLAY
+[assembly: AlwaysLinkAssembly]
+#endif
+
 namespace KinDzaDza.RateUs.RuStore
 {
     [Preserve]

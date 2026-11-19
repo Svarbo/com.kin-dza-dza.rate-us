@@ -8,6 +8,10 @@ using Google.Play.Review;
 using Google.Play.Common;
 #endif
 
+#if GOOGLE_PLAY
+[assembly: AlwaysLinkAssembly]
+#endif
+
 namespace KinDzaDza.RateUs.GooglePlay
 {
     [Preserve]
