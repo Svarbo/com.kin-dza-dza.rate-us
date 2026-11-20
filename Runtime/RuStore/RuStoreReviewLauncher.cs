@@ -3,7 +3,7 @@ using RuStore.Review;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-#if GOOGLE_PLAY
+#if RU_STORE
 [assembly: AlwaysLinkAssembly]
 #endif
 
@@ -16,9 +16,7 @@ namespace KinDzaDza.RateUs.RuStore
 
         public void TryOpenRuStorePopup()
         {
-#if UNITY_EDITOR
-            CompleteOpening?.Invoke(false);
-#else
+            Debug.LogError("TryOpenRuStorePopup");
             RuStoreReviewManager manager = RuStoreReviewManager.Instance;
 
             if (manager.IsInitialized == false && manager.Init() == false)
@@ -43,15 +41,19 @@ namespace KinDzaDza.RateUs.RuStore
                             Debug.LogError($"RuStore LaunchReviewFlow: {error.name} {error.description}");
                             CompleteOpening?.Invoke(false);
                         },
-                        onSuccess: () => CompleteOpening?.Invoke(true));
+                        onSuccess: () =>
+                        {
+                            Debug.LogError($"RuStore LaunchReviewFlow TRUE");
+                            CompleteOpening?.Invoke(true);
+                        });
                 });
-#endif
         }
 
         [Preserve]
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
         {
+            Debug.LogError("Register");
             RateUsPopup.LaunchRuStore = popup =>
             {
                 RuStoreReviewLauncher launcher = new RuStoreReviewLauncher();
@@ -61,9 +63,11 @@ namespace KinDzaDza.RateUs.RuStore
                     if (opened)
                     {
                         popup.Hide();
+                        Debug.LogError("Hide");
                     }
                     else
                     {
+                        Debug.LogError("OpenStorePage");
                         popup.OpenStorePage();
                     }
                 };
