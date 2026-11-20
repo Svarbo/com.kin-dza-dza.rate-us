@@ -33,7 +33,6 @@ namespace KinDzaDza.RateUs.Advertisement
         private void Block()
         {
             _rateUsWindowOpen = true;
-
             AdvertisementController advertisement = AdvertisementController.Instance;
 
             if (advertisement == null)
@@ -41,13 +40,23 @@ namespace KinDzaDza.RateUs.Advertisement
                 return;
             }
 
-            advertisement.SuspendDisplayBanner(this);
+            advertisement.HideBanner();
             advertisement.AddInterstitialBlocker(this);
+            advertisement.InterstitialPlayer.Suspend();
         }
 
         private void Unblock()
         {
             _rateUsWindowOpen = false;
+            AdvertisementController advertisement = AdvertisementController.Instance;
+
+            if (advertisement == null)
+            {
+                return;
+            }
+
+            advertisement.InterstitialPlayer.Continue();
+            advertisement.ShowBanner();
         }
     }
 }
