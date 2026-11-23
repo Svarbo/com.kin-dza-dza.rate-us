@@ -27,13 +27,8 @@ namespace KinDzaDza.RateUs.AdsAppView
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void RegisterRateUsPause()
         {
-            if (RateUsPopup.Instance == null)
-            {
-                return;
-            }
-
-            RateUsPopup.Instance.Shown += PausePopups;
-            RateUsPopup.Instance.Closed += ResumePopups;
+            RateUsPopup.Shown += PausePopups;
+            RateUsPopup.Closed += ResumePopups;
         }
 
         private static void PausePopups()

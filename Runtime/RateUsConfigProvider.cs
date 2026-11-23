@@ -24,6 +24,7 @@ namespace KinDzaDza.RateUs
             {
                 return _config;
             }
+
             string json = JsonConvert.SerializeObject(new
             {
                 app_id = Application.identifier,

@@ -16,22 +16,21 @@ namespace KinDzaDza.RateUs.Advertisement
         public void RemoveRestriction() { }
 
         [Preserve]
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
         {
-            if (RateUsPopup.Instance == null)
-            {
-                return;
-            }
+            Debug.LogError("RateUsAdvertisementBlocker Register");
 
             _blocker = new RateUsAdvertisementBlocker();
 
-            RateUsPopup.Instance.Shown += _blocker.Block;
-            RateUsPopup.Instance.Closed += _blocker.Unblock;
+            RateUsPopup.Shown += _blocker.Block;
+            RateUsPopup.Closed += _blocker.Unblock;
         }
 
         private void Block()
         {
+            Debug.LogError("Block");
+
             _rateUsWindowOpen = true;
             AdvertisementController advertisement = AdvertisementController.Instance;
 
@@ -47,6 +46,7 @@ namespace KinDzaDza.RateUs.Advertisement
 
         private void Unblock()
         {
+            Debug.LogError("Unblock");
             _rateUsWindowOpen = false;
             AdvertisementController advertisement = AdvertisementController.Instance;
 

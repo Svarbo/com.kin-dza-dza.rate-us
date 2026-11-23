@@ -16,17 +16,14 @@ namespace KinDzaDza.RateUs
         private string _storeLink;
         private Store _store;
 
-        public static RateUsPopup Instance { get; private set; }
-
         public static Action<RateUsPopup> LaunchGoogle;
         public static Action<RateUsPopup> LaunchRuStore;
 
-        public event Action Shown;
-        public event Action Closed;
+        public static event Action Shown;
+        public static event Action Closed;
 
         private void Awake()
         {
-            Instance = this;
             DontDestroyOnLoad(this);
 
             Hide();
@@ -78,7 +75,6 @@ namespace KinDzaDza.RateUs
         public void Hide()
         {
             DisableCanvasGroup(_windowCanvasGroup);
-
             Closed?.Invoke();
         }
 
