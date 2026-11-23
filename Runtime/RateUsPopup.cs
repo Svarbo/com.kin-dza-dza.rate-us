@@ -16,6 +16,8 @@ namespace KinDzaDza.RateUs
         private string _storeLink;
         private Store _store;
 
+        public static RateUsPopup Instance { get; private set; }
+
         public static Action<RateUsPopup> LaunchGoogle;
         public static Action<RateUsPopup> LaunchRuStore;
 
@@ -24,6 +26,7 @@ namespace KinDzaDza.RateUs
 
         private void Awake()
         {
+            Instance = this;
             DontDestroyOnLoad(this);
 
             Hide();
