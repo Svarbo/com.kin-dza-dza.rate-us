@@ -15,6 +15,8 @@ namespace KinDzaDza.RateUs.Advertisement
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
         {
+            Debug.Log($"[{nameof(AcceptWindowPause)}]: registred");
+
             RateUsPopupTimer.IsAcceptWindowPaused = () =>
             {
                 AdvertisementController advertisement = AdvertisementController.Instance;

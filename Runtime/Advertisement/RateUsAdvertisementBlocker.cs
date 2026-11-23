@@ -19,7 +19,7 @@ namespace KinDzaDza.RateUs.Advertisement
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
         {
-            Debug.LogError("RateUsAdvertisementBlocker Register");
+            Debug.Log($"[{nameof(RateUsAdvertisementBlocker)}]: registred");
 
             _blocker = new RateUsAdvertisementBlocker();
 
@@ -29,7 +29,7 @@ namespace KinDzaDza.RateUs.Advertisement
 
         private void Block()
         {
-            Debug.LogError("Block");
+            Debug.Log($"[{nameof(RateUsAdvertisementBlocker)}]: advertisement blocked");
 
             _rateUsWindowOpen = true;
             AdvertisementController advertisement = AdvertisementController.Instance;
@@ -46,7 +46,8 @@ namespace KinDzaDza.RateUs.Advertisement
 
         private void Unblock()
         {
-            Debug.LogError("Unblock");
+            Debug.Log($"[{nameof(RateUsAdvertisementBlocker)}]: advertisement unblocked");
+
             _rateUsWindowOpen = false;
             AdvertisementController advertisement = AdvertisementController.Instance;
 

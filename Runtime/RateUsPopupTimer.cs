@@ -94,7 +94,7 @@ namespace KinDzaDza.RateUs
 
         private void SaveRemainingTime()
         {
-            Debug.LogError($"SaveRemainingTime: {_remainingSeconds}");
+            Debug.Log($"[{nameof(RateUsPopupTimer)}]: remaining time: {_remainingSeconds}");
             PlayerPrefs.SetFloat(Constants.RateUsRemainingTimeKey, Mathf.Max(0f, _remainingSeconds));
         }
 

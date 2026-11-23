@@ -105,7 +105,7 @@ namespace KinDzaDza.RateUs
 
         private void OnRateUsTimerExpired()
         {
-            Debug.LogError("OnRateUsTimerExpired");
+            Debug.Log($"[{nameof(RateUsPopup)}]: rate us timer expired!");
 
             if (_rateUsPlaceType == RateUsPlaceType.Timer)
             {

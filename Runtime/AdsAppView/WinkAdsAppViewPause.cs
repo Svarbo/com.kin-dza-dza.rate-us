@@ -17,6 +17,8 @@ namespace KinDzaDza.RateUs.AdsAppView
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
         {
+            Debug.Log($"[{nameof(WinkAdsAppViewPause)}]: registred");
+
             GamePause.GamePaused += () => _popupOpened = true;
             GamePause.GameUnpaused += () => _popupOpened = false;
 
